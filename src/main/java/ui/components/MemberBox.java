@@ -36,14 +36,14 @@ public class MemberBox extends JPanel {
             String role
     ) {
 
-        JLabel text =
-                new JLabel(
+        JLabel text
+                = new JLabel(
                         "<html><center><b>"
-                                + UIHelper.safe(name)
-                                + "</b><br>"
-                                + "<span style='color:#888888'>"
-                                + UIHelper.safe(role)
-                                + "</span></center></html>",
+                        + UIHelper.safe(name)
+                        + "</b><br>"
+                        + "<span style='color:#888888'>"
+                        + UIHelper.safe(role)
+                        + "</span></center></html>",
                         SwingConstants.CENTER
                 );
 

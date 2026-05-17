@@ -9,26 +9,18 @@ public class SearchByType
         implements SearchStrategy {
 
     @Override
-    public List<Report> search(
-            List<Report> reports,
-            String keyword
-    ) {
-
-        List<Report> result =
-                new ArrayList<>();
-
+    public List<Report> search(List<Report> reports, String keyword) {
+        List<Report> result = new ArrayList<>();
+        String lowerKeyword = keyword.toLowerCase().trim();
         for (Report report : reports) {
 
             if (report.getRole()
                     .toLowerCase()
-                    .contains(
-                            keyword.toLowerCase()
-                    )) {
+                    .contains(lowerKeyword)) {
 
                 result.add(report);
             }
         }
-
         return result;
     }
 }

@@ -34,12 +34,12 @@ public class Avatar extends JComponent {
                 new Dimension(size, size)
         );
     }
-
+//Draws the circular avatar, with centered initials.
     @Override
     protected void paintComponent(Graphics g) {
 
-        Graphics2D graphics =
-                (Graphics2D) g.create();
+        Graphics2D graphics
+                = (Graphics2D) g.create();
 
         graphics.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
@@ -67,8 +67,8 @@ public class Avatar extends JComponent {
                 )
         );
 
-        FontMetrics metrics =
-                graphics.getFontMetrics();
+        FontMetrics metrics
+                = graphics.getFontMetrics();
 
         graphics.drawString(
                 text,

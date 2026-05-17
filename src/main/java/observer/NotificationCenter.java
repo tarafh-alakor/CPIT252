@@ -6,6 +6,7 @@ import java.util.List;
 // BEHAVIORAL PATTERN: Observer Subject.
 // It stores observers and notifies them when the system changes.
 public class NotificationCenter {
+
     private final List<NotificationObserver> observers = new ArrayList<>();
     private final List<String> notificationHistory = new ArrayList<>();
 

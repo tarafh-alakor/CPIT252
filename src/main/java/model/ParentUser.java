@@ -1,7 +1,6 @@
 package model;
 
 // Concrete Product used by UserFactory.
-
 import model.BaseUser;
 
 public class ParentUser extends BaseUser {

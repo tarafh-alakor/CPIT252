@@ -5,7 +5,6 @@ import factory.UserFactory;
 import model.*;
 import observer.NotificationCenter;
 import repository.CareRepository;
-import strategy.*;
 
 import ui.*;
 import ui.components.*;
@@ -17,21 +16,39 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.io.File;
+import strategy.SearchAll;
+import strategy.SearchByAuthor;
+import strategy.SearchByChildName;
+import strategy.SearchByContent;
+import strategy.SearchByType;
+import strategy.SearchContext;
+import strategy.SearchStrategy;
 
 /*
- * Main GUI class for the Weam platform.
+ * Main application GUI class for the Weam Inclusive Care Platform.
+ 
+ * This class is responsible for:
+ * - building and managing the main user interface
+ * - handling page navigation and dashboard rendering
+ * - connecting the GUI with backend system operations
+ * - coordinating user interactions across the platform
+ 
+ * DESIGN PATTERNS USED:
  *
- * Design goal:
- * - Make the interface fully English to avoid layout issues caused by mixed Arabic/English direction.
- * - Keep the same dashboard feeling as the reference image: purple header, left sidebar,
- *   white rounded cards, soft peach/pink accents, progress ring, team section, and child photo.
- * - Remove all text icons and symbolic icons from the interface.
- *
- * Patterns connected here:
- * - Factory Method: creates the correct User object during login.
- * - Facade: GUI talks to CarePlatformFacade instead of many subsystem classes.
- * - Observer: notification list updates automatically when the system changes.
- */
+ * 1. Factory Method Pattern
+ *    Used during login to dynamically create the correct User object.
+ 
+ * 2. Facade Pattern
+ *    The GUI communicates with backend operations through
+ *    CarePlatformFacade instead of accessing subsystems directly.
+ 
+ * 3. Observer Pattern
+ *    Notification panels automatically update whenever
+ *    the NotificationCenter sends new system updates.
+ 
+ * 4. Strategy Pattern
+ *    Different report search algorithms are selected dynamically
+ *    based on the user's selected filter option.*/
 public class CareConnectApp extends JFrame {
 
     // =========================
@@ -47,17 +64,30 @@ public class CareConnectApp extends JFrame {
     private final Map<String, JButton> navButtons = new LinkedHashMap<>();
     private String activePage = "Home";
 
+    //Initializes the application window,loads the visual theme, prepares system patterns,and launches the login workflow.
     public CareConnectApp() {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+
         setupPatterns();
         showLoginDialog();
         buildWindow();
     }
 
     /*
-     * Creates the main objects used by the three design patterns.
-     * The GUI stays clean because these objects handle user creation,
-     * subsystem operations, and notifications.
-     */
+     * Initializes the main backend pattern objects used by the system, This method connects:
+    * - the repository layer
+    * - notification system
+    * - facade layer
+    * - observer components
+    * The GUI remains loosely coupled because all subsystem, communication is centralized through the facade.*/
     private void setupPatterns() {
         CareRepository repository = new CareRepository();
         NotificationCenter notificationCenter = new NotificationCenter();
@@ -75,13 +105,10 @@ public class CareConnectApp extends JFrame {
     }
 
     /*
-     * Login dialog.
-     * Factory Method Pattern is used here because the selected role determines
-     * which concrete User class should be created.
-     */
+    * Displays the login and registration workflow for the mother account.Factory Method Pattern is used to create
+    * the appropriate User object after authentication. The role is currently fixed as Parent, to match the system's mother dashboard design.*/
     private void showLoginDialog() {
         // Mother-only access. The user can login or create a simple new account.
-        // Factory Pattern is still used, but the role is fixed as Parent.
         String[] options = {"Login", "Register"};
         int choice = JOptionPane.showOptionDialog(
                 null,
@@ -135,18 +162,21 @@ public class CareConnectApp extends JFrame {
             }
         }
 
-        UserFactory factory = new UserFactory();
-        currentUser = factory.createUser("Parent", facade.getMotherProfile().getName());
+        UserFactory factory = UserFactory.forRole("Parent");
+        currentUser = factory.createUser(facade.getMotherProfile().getName());
     }
 
     /*
-     * Builds the main application frame after login.
-     */
+    * Builds the main application window after login. This method creates:
+    * - the top header
+    * - sidebar navigation
+    * - dynamic content area
+    * The dashboard layout is initialized here.*/
     private void buildWindow() {
         setTitle("Weam - Inclusive Care Platform");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(1200, 760));
-        setSize(1280, 820);
+        setMinimumSize(new Dimension(1280, 820));
+        setSize(1440, 900);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         getContentPane().setBackground(UIConstants.BACKGROUND);
@@ -171,7 +201,6 @@ public class CareConnectApp extends JFrame {
 
     /*
      * Creates the purple top header.
-     * The layout is fully English and left-to-right.
      */
     private JPanel createHeader() {
         GradientPanel header = new GradientPanel(UIConstants.PURPLE, UIConstants.PURPLE_DARK);
@@ -202,7 +231,7 @@ public class CareConnectApp extends JFrame {
         sidebar.setLayout(new BorderLayout());
         sidebar.setBorder(new EmptyBorder(20, 16, 20, 16));
 
-        JPanel menu = new JPanel(new GridLayout(7, 1, 0, 8));
+        JPanel menu = new JPanel(new GridLayout(7, 1, 0, 12));
         menu.setOpaque(false);
 
         addNav(menu, "Home", () -> {
@@ -221,7 +250,6 @@ public class CareConnectApp extends JFrame {
         addNav(menu, "Profile", this::showProfile);
         addNav(menu, "Care Team", this::showCareTeam);
         addNav(menu, "Reports", this::showReports);
-        addNav(menu, "Search", this::showSearch);
         addNav(menu, "Notifications", this::showNotifications);
         addNav(menu, "Communication", this::showCommunication);
 
@@ -302,53 +330,160 @@ public class CareConnectApp extends JFrame {
         contentPanel.repaint();
     }
 
-    private void showChildProfile() {
-        resetContent();
-        activePage = "Child Profile";
-        updateNavStyle();
-
-        RoundedPanel c = UIHelper.createCard("Child Profile");
-
-        JPanel list = new JPanel(new GridLayout(0, 1, 0, 10));
-        list.setOpaque(false);
-
-        for (ChildProfile child : facade.getChildren()) {
-            JPanel row = new JPanel(new BorderLayout(10, 0));
-            row.setOpaque(false);
-            row.add(UIHelper.rowCard(child.toString(), UIConstants.PURPLE), BorderLayout.CENTER);
-            JButton edit = actionButton("Edit");
-            edit.addActionListener(e -> editChild(child));
-            row.add(edit, BorderLayout.EAST);
-            list.add(row);
-        }
-
-        JButton add = actionButton("Add Another Child");
-        add.addActionListener(e -> addChild());
-
-        c.add(new JScrollPane(list), BorderLayout.CENTER);
-        c.add(add, BorderLayout.SOUTH);
-        contentPanel.add(c, BorderLayout.CENTER);
-    }
-
     private void showReports() {
+
         resetContent();
         activePage = "Reports";
         updateNavStyle();
 
         RoundedPanel c = UIHelper.createCard("Reports");
 
+        JTextField field = new JTextField();
+        field.setFont(UIConstants.FONT);
+        field.setBorder(new EmptyBorder(12, 14, 12, 14));
+        field.setToolTipText("Search reports");
+
+        JComboBox<String> searchType = new JComboBox<>(new String[]{
+            "All", "Content", "Author", "Role", "Child Name"
+        });
+
+        searchType.setFont(UIConstants.FONT);
+        searchType.setPreferredSize(new Dimension(170, 44));
+
+        JButton search = actionButton("Search");
+        search.setPreferredSize(new Dimension(120, 44));
+
+        JPanel filterPanel = new JPanel(new BorderLayout(8, 4));
+        filterPanel.setOpaque(false);
+
+        JLabel filterLabel = new JLabel("Filter");
+        filterLabel.setFont(UIConstants.SMALL);
+        filterLabel.setForeground(UIConstants.MUTED);
+
+        filterPanel.add(filterLabel, BorderLayout.NORTH);
+        filterPanel.add(searchType, BorderLayout.CENTER);
+
+        JPanel searchBar = new JPanel(new BorderLayout(12, 0));
+        searchBar.setOpaque(false);
+        searchBar.setBorder(new EmptyBorder(4, 4, 14, 4));
+
+        searchBar.add(field, BorderLayout.CENTER);
+        searchBar.add(filterPanel, BorderLayout.EAST);
+        searchBar.add(search, BorderLayout.WEST);
+
         JPanel list = new JPanel(new GridLayout(0, 1, 0, 10));
         list.setOpaque(false);
 
-        for (Report report : facade.getReports()) {
-            list.add(UIHelper.rowCard(report.toString(), UIConstants.BLUE));
-        }
+        /*
+     * Loads all reports into the dashboard.
+         */
+        Runnable loadAllReports = () -> {
+
+            list.removeAll();
+
+            for (Report report : facade.getReports()) {
+
+                list.add(
+                        UIHelper.rowCard(
+                                report.toString(),
+                                UIConstants.BLUE
+                        )
+                );
+            }
+
+            list.revalidate();
+            list.repaint();
+        };
+
+        loadAllReports.run();
+
+        /*
+     * Strategy Pattern:
+     * The selected search strategy changes dynamically
+     * depending on the selected filter type.
+         */
+        search.addActionListener(e -> {
+
+            list.removeAll();
+
+            String keyword = field.getText().trim();
+
+            if (keyword.isEmpty()) {
+
+                loadAllReports.run();
+                return;
+            }
+
+            SearchStrategy strategy;
+
+            switch (searchType.getSelectedItem().toString()) {
+
+                case "Content":
+                    strategy = new SearchByContent();
+                    break;
+
+                case "Author":
+                    strategy = new SearchByAuthor();
+                    break;
+
+                case "Role":
+                    strategy = new SearchByType();
+                    break;
+
+                case "Child Name":
+                    strategy = new SearchByChildName();
+                    break;
+
+                default:
+                    strategy = new SearchAll();
+                    break;
+            }
+
+            SearchContext context = new SearchContext(strategy);
+
+            java.util.List<Report> matches
+                    = facade.searchReports(context, keyword);
+
+            if (matches.isEmpty()) {
+
+                list.add(
+                        UIHelper.rowCard(
+                                "No matching reports were found.",
+                                UIConstants.PINK
+                        )
+                );
+
+            } else {
+
+                for (Report report : matches) {
+
+                    list.add(
+                            UIHelper.rowCard(
+                                    report.toString(),
+                                    UIConstants.BLUE
+                            )
+                    );
+                }
+            }
+
+            list.revalidate();
+            list.repaint();
+        });
+
+        /*
+     * Allows pressing Enter inside the search field
+     * to trigger the search button automatically.
+         */
+        field.addActionListener(e -> search.doClick());
 
         JButton add = actionButton("Add Report");
+
         add.addActionListener(e -> addReport());
 
+        c.add(searchBar, BorderLayout.NORTH);
         c.add(new JScrollPane(list), BorderLayout.CENTER);
         c.add(add, BorderLayout.SOUTH);
+
         contentPanel.add(c, BorderLayout.CENTER);
     }
 
@@ -433,155 +568,6 @@ public class CareConnectApp extends JFrame {
         return box;
     }
 
-    private void showSearch() {
-        resetContent();
-        activePage = "Search";
-        updateNavStyle();
-
-        RoundedPanel c = UIHelper.createCard("Search Reports");
-
-        JTextField field = new JTextField();
-        field.setBorder(new EmptyBorder(10, 12, 10, 12));
-
-        JComboBox<String> searchType = new JComboBox<>(new String[]{
-            "All", "Search by Content", "Search by Author", "Search by Role", "Search by Child Name"
-        });
-
-        JButton search = actionButton("Search");
-
-        JPanel top = new JPanel(new BorderLayout(10, 0));
-        top.setOpaque(false);
-        top.add(field, BorderLayout.CENTER);
-        top.add(searchType, BorderLayout.WEST);
-        top.add(search, BorderLayout.EAST);
-
-        JPanel results = new JPanel(new GridLayout(0, 1, 0, 10));
-        results.setOpaque(false);
-
-        search.addActionListener(e -> {
-            results.removeAll();
-
-            String keyword = field.getText().trim();
-            if (keyword.isEmpty()) {
-                results.add(UIHelper.rowCard("Please enter a search keyword.", UIConstants.PINK));
-                results.revalidate();
-                results.repaint();
-                return;
-            }
-
-            SearchContext context = new SearchContext(new SearchAll());
-
-            String selectedStrategy = searchType.getSelectedItem().toString();
-            if (selectedStrategy.equals("Search by Content")) {
-                context.setStrategy(new SearchByContent());
-            } else if (selectedStrategy.equals("Search by Author")) {
-                context.setStrategy(new SearchByAuthor());
-            } else if (selectedStrategy.equals("Search by Role")) {
-                context.setStrategy(new SearchByType());
-            } else if (selectedStrategy.equals("Search by Child Name")) {
-                context.setStrategy(new SearchByChildName());
-            }
-
-            int resultCount = 0;
-
-            // Strategy Pattern is still used for searching reports.
-            java.util.List<Report> foundReports = facade.searchReports(context, keyword);
-            for (Report report : foundReports) {
-                results.add(UIHelper.rowCard("Report Result\n" + report.toString(), UIConstants.BLUE));
-                resultCount++;
-            }
-
-            // The search screen also checks the other system data, not only reports.
-            // This makes searches like "Doctor" show the doctor in the Care Team.
-            resultCount += addCareTeamSearchResults(results, selectedStrategy, keyword);
-            resultCount += addChildSearchResults(results, selectedStrategy, keyword);
-            resultCount += addAppointmentSearchResults(results, selectedStrategy, keyword);
-
-            if (resultCount == 0) {
-                results.add(UIHelper.rowCard("No matching results were found.", UIConstants.PINK));
-            }
-
-            results.revalidate();
-            results.repaint();
-        });
-
-        c.add(top, BorderLayout.NORTH);
-        c.add(new JScrollPane(results), BorderLayout.CENTER);
-        contentPanel.add(c, BorderLayout.CENTER);
-    }
-
-
-    private int addCareTeamSearchResults(JPanel results, String selectedStrategy, String keyword) {
-        int count = 0;
-        for (CareTeamMember member : facade.getCareTeam()) {
-            boolean match;
-            if (selectedStrategy.equals("Search by Author")) {
-                match = containsIgnoreCase(member.getName(), keyword);
-            } else if (selectedStrategy.equals("Search by Role")) {
-                match = containsIgnoreCase(member.getRole(), keyword);
-            } else if (selectedStrategy.equals("Search by Child Name")) {
-                match = false;
-            } else {
-                match = containsIgnoreCase(member.getName(), keyword)
-                        || containsIgnoreCase(member.getRole(), keyword)
-                        || containsIgnoreCase(member.getPhone(), keyword)
-                        || containsIgnoreCase(member.getEmail(), keyword)
-                        || containsIgnoreCase(member.getNotes(), keyword);
-            }
-
-            if (match) {
-                results.add(UIHelper.rowCard("Care Team Result\n" + member.toString(), UIConstants.PURPLE));
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private int addChildSearchResults(JPanel results, String selectedStrategy, String keyword) {
-        int count = 0;
-        for (ChildProfile child : facade.getChildren()) {
-            boolean match;
-            if (selectedStrategy.equals("Search by Child Name")) {
-                match = containsIgnoreCase(child.getName(), keyword);
-            } else if (selectedStrategy.equals("Search by Role") || selectedStrategy.equals("Search by Author")) {
-                match = false;
-            } else {
-                match = containsIgnoreCase(child.toString(), keyword);
-            }
-
-            if (match) {
-                results.add(UIHelper.rowCard("Child Result\n" + child.toString(), UIConstants.PINK));
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private int addAppointmentSearchResults(JPanel results, String selectedStrategy, String keyword) {
-        int count = 0;
-        for (Appointment appointment : facade.getAppointments()) {
-            boolean match;
-            if (selectedStrategy.equals("Search by Author") || selectedStrategy.equals("Search by Role")) {
-                match = containsIgnoreCase(appointment.getSpecialist(), keyword);
-            } else if (selectedStrategy.equals("Search by Child Name")) {
-                match = false;
-            } else {
-                match = containsIgnoreCase(appointment.toString(), keyword);
-            }
-
-            if (match) {
-                results.add(UIHelper.rowCard("Appointment Result\n" + appointment.toString(), UIConstants.PURPLE));
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private boolean containsIgnoreCase(String text, String keyword) {
-        return text != null && keyword != null
-                && text.toLowerCase().contains(keyword.toLowerCase());
-    }
-
     private void showProfile() {
         resetContent();
         activePage = "Profile";
@@ -647,12 +633,9 @@ public class CareConnectApp extends JFrame {
                         Integer.parseInt(age.getText().trim()),
                         condition.getText(),
                         guardian.getText(),
-                        Integer.parseInt(progress.getText().trim())
+                        Integer.parseInt(progress.getText().trim()),
+                        information.getText()
                 );
-                // Keep old addChild method in the Facade, then update the last child with extra information.
-                java.util.List<ChildProfile> children = facade.getChildren();
-                ChildProfile addedChild = children.get(children.size() - 1);
-                facade.updateChild(addedChild, name.getText(), Integer.parseInt(age.getText().trim()), condition.getText(), guardian.getText(), Integer.parseInt(progress.getText().trim()), information.getText());
                 showProfile();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Age and progress must be valid numbers.");
@@ -741,7 +724,7 @@ public class CareConnectApp extends JFrame {
     /*
      * Adds a future appointment.
      */
-    /*
+ /*
      * Creates an appointment request directly from the selected care team member card.
      * Appointments are now part of Care Team instead of a separate sidebar page.
      */
@@ -836,7 +819,7 @@ public class CareConnectApp extends JFrame {
         if (result == JOptionPane.OK_OPTION) {
             try {
                 facade.updateMotherProfile(name.getText(), phone.getText(), email.getText(), information.getText());
-                currentUser = new ParentUser(name.getText().trim());
+                currentUser = UserFactory.forRole("Parent").createUser(name.getText().trim());
                 refreshHeaderAndSidebar();
                 showProfile();
             } catch (IllegalArgumentException ex) {
@@ -917,6 +900,7 @@ public class CareConnectApp extends JFrame {
         return button;
     }
 
+    // Main method used to start and test the program
     public static void main(String[] args) {
         SwingUtilities.invokeLater(CareConnectApp::new);
     }

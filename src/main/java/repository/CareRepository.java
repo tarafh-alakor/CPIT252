@@ -10,9 +10,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// Shared application data storage.
-// Kept simple for the course project: in-memory storage.
+/*Central in-memory repository used to store
+ * application data during runtime.
+ * Stores:
+ * - child profiles
+ * - reports
+ * - appointments
+ * - care team members
+ * - mother profile data*/
 public class CareRepository {
+
     private final List<ChildProfile> children = new ArrayList<>();
     private final List<Report> reports = new ArrayList<>();
     private final List<Appointment> appointments = new ArrayList<>();
@@ -20,6 +27,10 @@ public class CareRepository {
     private final MotherProfile motherProfile = new MotherProfile("Tarafh", "05XXXXXXXX", "mother@example.com", "Main guardian for the child.");
 
     public CareRepository() {
+        initializeSampleData();
+    }
+
+    private void initializeSampleData() {
         // Sample data to make the demo look complete from the first run.
         children.add(new ChildProfile("Jana Ahmad", 6, "Hearing impairment", "Walaa Nasser", 75));
         reports.add(new Report("Jana Ahmad", "Speech Therapist", "Amani", "Speech session completed. The child improved pronunciation."));

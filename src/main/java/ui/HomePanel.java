@@ -5,75 +5,57 @@ import ui.cards.AppointmentsCard;
 import ui.cards.HeroCard;
 import ui.cards.ProgressCard;
 import ui.cards.ReportsCard;
-import ui.cards.TimelineCard;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import ui.utils.UIConstants;
 
-/*
- * Main dashboard home page.
- *
- * Responsibility:
- * - Layout only
- * - Combines dashboard cards
- */
+/* Main dashboard panel displayed after login.
+ * Organizes:
+ * - child overview
+ * - appointments
+ * - reports
+ * - progress tracking
+ * Uses reusable dashboard cards
+ * for modular UI design.*/
 public class HomePanel extends JPanel {
 
-    private static final Color BACKGROUND =
-            new Color(248, 246, 253);
-
-    public HomePanel(
-            CarePlatformFacade facade
-    ) {
-
-        setLayout(new BorderLayout(16, 16));
-
-        setBackground(BACKGROUND);
-
-        setBorder(
-                new EmptyBorder(18, 18, 18, 18)
-        );
-
+    public HomePanel(CarePlatformFacade facade) {
+        setLayout(new BorderLayout());
+        setBackground(UIConstants.BACKGROUND);
+        setBorder(new EmptyBorder(14, 14, 14, 14));
         initializeUI(facade);
     }
 
-    private void initializeUI(
-            CarePlatformFacade facade
-    ) {
+    private void initializeUI(CarePlatformFacade facade) {
+        JPanel page = new JPanel(new GridBagLayout());
+        page.setOpaque(false);
 
-        // Top section
-        add(
-                new HeroCard(facade),
-                BorderLayout.NORTH
-        );
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.insets = new Insets(0, 0, 12, 0);
 
-        // Middle dashboard cards
-        JPanel middle =
-                new JPanel(
-                        new GridLayout(1, 3, 16, 16)
-                );
+        gbc.gridy = 0;
+        gbc.weighty = 0.26;
+        page.add(new HeroCard(facade), gbc);
 
+        JPanel middle = new JPanel(new GridLayout(1, 2, 14, 0));
         middle.setOpaque(false);
+        middle.add(new AppointmentsCard(facade));
+        middle.add(new ReportsCard(facade));
 
-        middle.add(
-                new AppointmentsCard(facade)
-        );
+        gbc.gridy = 1;
+        gbc.weighty = 0.42;
+        page.add(middle, gbc);
 
-        middle.add(
-                new ReportsCard(facade)
-        );
+        gbc.gridy = 2;
+        gbc.weighty = 0.24;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        page.add(new ProgressCard(facade), gbc);
 
-        middle.add(
-                new ProgressCard(facade)
-        );
-
-        add(middle, BorderLayout.CENTER);
-
-        // Bottom timeline
-        add(
-                new TimelineCard(),
-                BorderLayout.SOUTH
-        );
+        add(page, BorderLayout.CENTER);
     }
 }

@@ -1,7 +1,5 @@
 package factory;
 
-// CREATIONAL PATTERN: Factory Method.
-
 import model.DoctorUser;
 import model.ParentUser;
 import model.SpecialTeacherUser;
@@ -9,28 +7,85 @@ import model.TeacherUser;
 import model.TherapistUser;
 import model.User;
 
-// It creates the correct User object based on the selected role.
-// The GUI does not need to know which concrete class to instantiate.
-public class UserFactory {
+// CREATIONAL PATTERN: Factory Method.
+// The abstract factory defines the factory method createUser().
+// Each concrete factory decides which concrete User class to instantiate.
+// This avoids putting object creation decisions inside the GUI.
+public abstract class UserFactory {
 
-    public User createUser(String role, String name) {
-        if (role == null || name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Role and name are required.");
+    public abstract User createUser(String name);
+
+    protected void validateName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("User name is required.");
+        }
+    }
+
+    public static UserFactory forRole(String role) {
+        if (role == null || role.trim().isEmpty()) {
+            throw new IllegalArgumentException("Role is required.");
         }
 
-        switch (role) {
+        switch (role.trim()) {
             case "Parent":
-                return new ParentUser(name);
+            case "Mother":
+                return new ParentUserFactory();
             case "Doctor":
-                return new DoctorUser(name);
+                return new DoctorUserFactory();
             case "School Teacher":
-                return new TeacherUser(name);
+            case "Teacher":
+                return new TeacherUserFactory();
             case "Special Teacher":
-                return new SpecialTeacherUser(name);
+                return new SpecialTeacherUserFactory();
             case "Speech Therapist":
-                return new TherapistUser(name);
+                return new TherapistUserFactory();
             default:
                 throw new IllegalArgumentException("Unknown role: " + role);
         }
+    }
+}
+
+class ParentUserFactory extends UserFactory {
+
+    @Override
+    public User createUser(String name) {
+        validateName(name);
+        return new ParentUser(name.trim());
+    }
+}
+
+class DoctorUserFactory extends UserFactory {
+
+    @Override
+    public User createUser(String name) {
+        validateName(name);
+        return new DoctorUser(name.trim());
+    }
+}
+
+class TeacherUserFactory extends UserFactory {
+
+    @Override
+    public User createUser(String name) {
+        validateName(name);
+        return new TeacherUser(name.trim());
+    }
+}
+
+class SpecialTeacherUserFactory extends UserFactory {
+
+    @Override
+    public User createUser(String name) {
+        validateName(name);
+        return new SpecialTeacherUser(name.trim());
+    }
+}
+
+class TherapistUserFactory extends UserFactory {
+
+    @Override
+    public User createUser(String name) {
+        validateName(name);
+        return new TherapistUser(name.trim());
     }
 }

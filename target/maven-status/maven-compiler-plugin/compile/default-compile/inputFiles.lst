@@ -1,41 +1,38 @@
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\app\CareConnectApp.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\careconnect\PatternDemoTest.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\facade\CarePlatformFacade.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\factory\UserFactory.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\Appointment.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\BaseUser.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\CareTeamMember.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\ChildProfile.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\DoctorUser.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\MotherProfile.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\ParentUser.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\Report.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\SpecialTeacherUser.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\TeacherUser.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\TherapistUser.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\model\User.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\observer\NotificationCenter.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\observer\NotificationObserver.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\repository\CareRepository.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\strategy\SearchAll.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\strategy\SearchByAuthor.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\strategy\SearchByChildName.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\strategy\SearchByContent.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\strategy\SearchByType.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\strategy\SearchContext.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\strategy\SearchStrategy.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\cards\AppointmentsCard.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\cards\HeroCard.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\cards\ProgressCard.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\cards\ReportsCard.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\cards\TimelineCard.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\components\Avatar.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\components\ChildPhoto.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\components\DashboardNotificationPanel.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\components\MemberBox.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\components\ProgressRing.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\components\RoundedPanel.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\components\StatusDot.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\HomePanel.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\utils\UIConstants.java
-C:\Users\welcome\Downloads\Weam_Search_Strategy_Fixed\Weam_FinalV\src\main\java\ui\utils\UIHelper.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\app\CareConnectApp.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\facade\CarePlatformFacade.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\factory\UserFactory.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\Appointment.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\BaseUser.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\CareTeamMember.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\ChildProfile.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\DoctorUser.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\MotherProfile.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\ParentUser.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\Report.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\SpecialTeacherUser.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\TeacherUser.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\TherapistUser.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\model\User.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\observer\NotificationCenter.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\observer\NotificationObserver.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\repository\CareRepository.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\strategy\SearchAll.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\strategy\SearchByAuthor.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\strategy\SearchByChildName.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\strategy\SearchByContent.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\strategy\SearchByType.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\strategy\SearchContext.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\strategy\SearchStrategy.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\cards\AppointmentsCard.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\cards\HeroCard.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\cards\HomeProgressBar.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\cards\ProgressCard.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\cards\ReportsCard.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\components\Avatar.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\components\ChildPhoto.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\components\DashboardNotificationPanel.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\components\MemberBox.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\components\RoundedPanel.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\HomePanel.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\utils\UIConstants.java
+C:\Users\Huawei\OneDrive - King Abdullaziz University\Documents\FCIT\FCIT-Y3\SEM2\CPIT252\Project\CPIT252_Weam_FinalV\Weam_FinalV\src\main\java\ui\utils\UIHelper.java

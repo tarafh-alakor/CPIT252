@@ -7,6 +7,7 @@ import java.util.List;
 // It holds the selected search strategy and executes it without exposing
 // the concrete search class to the GUI.
 public class SearchContext {
+
     private SearchStrategy strategy;
 
     public SearchContext(SearchStrategy strategy) {

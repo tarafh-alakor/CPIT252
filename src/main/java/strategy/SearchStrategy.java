@@ -5,8 +5,5 @@ import java.util.List;
 
 public interface SearchStrategy {
 
-    List<Report> search(
-            List<Report> reports,
-            String keyword
-    );
+    List<Report> search(List<Report> reports, String keyword);
 }

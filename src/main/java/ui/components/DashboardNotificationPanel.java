@@ -4,13 +4,10 @@ import observer.NotificationObserver;
 
 import javax.swing.*;
 
-/*
- * Concrete Observer in the Observer Design Pattern.
- *
+/* Concrete Observer in the Observer Design Pattern.
  * Responsibility:
  * - Listen for notifications
- * - Update notification list automatically
- */
+ * - Update notification list automatically*/
 public class DashboardNotificationPanel
         implements NotificationObserver {
 
@@ -28,28 +25,22 @@ public class DashboardNotificationPanel
 
         initializeDefaults();
     }
+//Initial startup notification.
 
-    /*
-     * Initial startup notification.
-     */
     private void initializeDefaults() {
 
         model.addElement(
                 "System ready. Notifications will appear here."
         );
     }
+// Returns visual notification list.
 
-    /*
-     * Returns visual notification list.
-     */
     public JList<String> getNotificationList() {
 
         return notificationList;
     }
+// Automatically updates the dashboard, when a new notification is received.
 
-    /*
-     * Observer update method.
-     */
     @Override
     public void update(String message) {
 

@@ -7,8 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 // Reusable rounded card used by the whole interface.
-// The soft shadow makes the GUI closer to the reference dashboard design.
 public class RoundedPanel extends JPanel {
+
     private final int radius;
     private final Color backgroundColor;
     private boolean shadow = true;

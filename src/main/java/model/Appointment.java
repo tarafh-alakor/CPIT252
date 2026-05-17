@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 // Represents an appointment for the child.
 public class Appointment {
+
     private final String title;
     private final String specialist;
     private final LocalDateTime dateTime;

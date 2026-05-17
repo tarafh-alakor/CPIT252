@@ -2,6 +2,7 @@ package model;
 
 // Represents one person in the child's care team.
 public class CareTeamMember {
+
     private final String name;
     private final String role;
     private final String phone;
@@ -16,11 +17,25 @@ public class CareTeamMember {
         this.notes = notes;
     }
 
-    public String getName() { return name; }
-    public String getRole() { return role; }
-    public String getPhone() { return phone; }
-    public String getEmail() { return email; }
-    public String getNotes() { return notes; }
+    public String getName() {
+        return name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
 
     @Override
     public String toString() {

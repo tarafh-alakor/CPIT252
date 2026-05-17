@@ -1,3 +1,12 @@
+/**
+ * PROJECT COMMENT GUIDE
+ * This class is part of the Weam Inclusive Care Platform project.
+ * The code includes design pattern implementations, GUI handling,
+ * and object-oriented programming concepts.
+ * Comments were added to explain the purpose of methods,
+ * classes, and important logic for project evaluation.
+ */
+
 package ui.utils;
 
 import ui.components.RoundedPanel;
@@ -98,12 +107,12 @@ public class UIHelper {
 
         JLabel label
                 = new JLabel(
-                        "<html><div style='width:245px'>"
+                        "<html><div style='width:360px'>"
                         + safe(text)
                         + "</div></html>"
                 );
 
-        label.setFont(UIConstants.FONT);
+        label.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
         label.setForeground(UIConstants.TEXT);
 

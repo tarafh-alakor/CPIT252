@@ -16,6 +16,7 @@ import java.util.List;
 // It gives the GUI one simple interface instead of dealing directly with
 // repository, reports, children, appointments, and notifications.
 public class CarePlatformFacade {
+
     private final CareRepository repository;
     private final NotificationCenter notificationCenter;
 
@@ -25,6 +26,10 @@ public class CarePlatformFacade {
     }
 
     public void addChild(String name, int age, String condition, String guardian, int progress) {
+        addChild(name, age, condition, guardian, progress, "");
+    }
+
+    public void addChild(String name, int age, String condition, String guardian, int progress, String information) {
         validateText(name, "Child name");
         validateText(condition, "Condition");
         validateText(guardian, "Guardian name");
@@ -34,6 +39,7 @@ public class CarePlatformFacade {
         }
 
         ChildProfile child = new ChildProfile(name.trim(), age, condition.trim(), guardian.trim(), progress);
+        child.update(name.trim(), age, condition.trim(), guardian.trim(), progress, safeText(information));
         repository.addChild(child);
         notificationCenter.notifyObservers("New child profile added: " + name.trim());
     }
@@ -106,6 +112,10 @@ public class CarePlatformFacade {
     public List<Report> searchReports(SearchContext context, String keyword) {
         validateText(keyword, "Search keyword");
         return context.executeSearch(repository.getReports(), keyword.trim());
+    }
+
+    private String safeText(String value) {
+        return value == null ? "" : value.trim();
     }
 
     private void validateText(String value, String fieldName) {

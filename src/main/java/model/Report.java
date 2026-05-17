@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 // Represents a report added by any care team member.
 public class Report {
+
     private final String childName;
     private final String role;
     private final String authorName;
@@ -26,8 +27,9 @@ public class Report {
     public String getRole() {
         return role;
     }
+
     public String getAuthorName() {
-    return authorName;
+        return authorName;
     }
 
     public String getText() {

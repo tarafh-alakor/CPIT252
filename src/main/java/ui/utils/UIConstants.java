@@ -1,3 +1,12 @@
+/**
+ * PROJECT COMMENT GUIDE
+ * This class is part of the Weam Inclusive Care Platform project.
+ * The code includes design pattern implementations, GUI handling,
+ * and object-oriented programming concepts.
+ * Comments were added to explain the purpose of methods,
+ * classes, and important logic for project evaluation.
+ */
+
 package ui.utils;
 
 import java.awt.*;
@@ -20,13 +29,13 @@ public class UIConstants {
             = new Color(126, 105, 195);
 
     public static final Color BACKGROUND
-            = new Color(248, 246, 253);
+            = new Color(244, 242, 250);
 
     public static final Color CARD
             = Color.WHITE;
 
     public static final Color SOFT_PANEL
-            = new Color(252, 250, 255);
+            = new Color(255, 255, 255);
 
     public static final Color PEACH
             = new Color(255, 232, 226);
@@ -35,10 +44,10 @@ public class UIConstants {
             = new Color(236, 118, 153);
 
     public static final Color TEXT
-            = new Color(43, 39, 72);
+            = new Color(33, 37, 41);
 
     public static final Color MUTED
-            = new Color(130, 126, 154);
+            = new Color(108, 117, 125);
 
     public static final Color BLUE
             = new Color(72, 169, 215);
@@ -53,14 +62,14 @@ public class UIConstants {
     // Fonts
     // =========================
     public static final Font FONT
-            = new Font("Arial", Font.PLAIN, 13);
+            = new Font("Segoe UI", Font.PLAIN, 14);
 
     public static final Font FONT_BOLD
-            = new Font("Arial", Font.BOLD, 13);
+            = new Font("Segoe UI", Font.BOLD, 14);
 
     public static final Font TITLE
-            = new Font("Arial", Font.BOLD, 23);
+            = new Font("Segoe UI", Font.BOLD, 26);
 
     public static final Font SMALL
-            = new Font("Arial", Font.PLAIN, 11);
+            = new Font("Segoe UI", Font.PLAIN, 12);
 }

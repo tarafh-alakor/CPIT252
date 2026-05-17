@@ -2,6 +2,7 @@ package model;
 
 // Represents the child's main profile information.
 public class ChildProfile {
+
     private String name;
     private int age;
     private String condition;
@@ -22,13 +23,31 @@ public class ChildProfile {
         setProgressPercentage(progressPercentage);
     }
 
-    public String getName() { return name; }
-    public int getAge() { return age; }
-    public String getCondition() { return condition; }
-    public String getGuardianName() { return guardianName; }
-    public String getInformation() { return information; }
-    public int getProgressPercentage() { return progressPercentage; }
+    public String getName() {
+        return name;
+    }
 
+    public int getAge() {
+        return age;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public String getGuardianName() {
+        return guardianName;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public int getProgressPercentage() {
+        return progressPercentage;
+    }
+
+    // Update method used in Observer pattern notifications
     public void update(String name, int age, String condition, String guardianName, int progressPercentage, String information) {
         this.name = name;
         this.age = age;
@@ -39,8 +58,12 @@ public class ChildProfile {
     }
 
     public void setProgressPercentage(int progressPercentage) {
-        if (progressPercentage < 0) progressPercentage = 0;
-        if (progressPercentage > 100) progressPercentage = 100;
+        if (progressPercentage < 0) {
+            progressPercentage = 0;
+        }
+        if (progressPercentage > 100) {
+            progressPercentage = 100;
+        }
         this.progressPercentage = progressPercentage;
     }
 

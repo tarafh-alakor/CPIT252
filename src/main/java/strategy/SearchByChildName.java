@@ -16,7 +16,6 @@ public class SearchByChildName implements SearchStrategy {
                 result.add(report);
             }
         }
-
         return result;
     }
 }

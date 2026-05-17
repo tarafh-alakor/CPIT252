@@ -1,37 +1,68 @@
 # Weam Platform
 
-A Java Swing desktop application for coordinating care communication for children with disabilities.
+A Java Swing desktop application designed to support communication and coordination between parents and care team members responsible for children with disabilities.
+
+---
 
 ## Project Idea
 
-The platform connects the parent, doctor, speech therapist, school teacher, and special teacher in one shared system.  
-Each care team member can add reports, view the child's profile, see appointments, search reports, and receive notifications.
+The Weam platform connects:
+- Parent
+- Doctor
+- Speech Therapist
+- School Teacher
+- Special Teacher
+
+in one shared system to improve communication and care coordination.
+
+Each care team member can:
+- Add reports
+- View child profiles
+- View appointments
+- Search reports
+- Receive notifications
+
+The platform is designed around a centralized dashboard that allows the mother to manage child care information from one place.
+
+---
 
 ## Technology Stack
 
 - Java
 - Java Swing
-- Object-Oriented Programming
+- Maven
+- JUnit 5
+- Object-Oriented Programming (OOP)
 - Design Patterns
 
+---
 
 ## Design Patterns Used
 
-In the Weam project, we used several design patterns to make the code more organized, easier to maintain, and easier to extend in the future.
+The project uses several design patterns to improve code organization, flexibility, maintainability, and scalability.
 
-### 1. Factory Pattern
+---
+
+### 1. Factory Method Pattern
 
 **Type:** Creational Design Pattern
 
-We used the Factory Pattern to create objects in a cleaner way instead of creating them directly in different parts of the program.
+The Factory Method Pattern is used to dynamically create different user roles without tightly coupling the GUI to concrete classes.
 
-In our project, the Factory Pattern is useful for creating different system objects such as users, reports, or care team members. This helps reduce repeated code and keeps object creation in one clear place.
+Supported user roles:
+- Parent
+- Doctor
+- School Teacher
+- Special Teacher
+- Speech Therapist
+
+Each role is created through a corresponding factory class.
 
 **Why we used it:**
-- To organize object creation.
-- To reduce repeated `new` statements.
-- To make it easier to add new object types later.
-- To keep the UI code cleaner.
+- To organize object creation
+- To reduce repeated `new` statements
+- To simplify adding new user roles
+- To improve code maintainability
 
 ---
 
@@ -39,15 +70,15 @@ In our project, the Factory Pattern is useful for creating different system obje
 
 **Type:** Structural Design Pattern
 
-We used the Facade Pattern to simplify the communication between the user interface and the internal system classes.
+The Facade Pattern simplifies communication between the GUI and the internal system classes.
 
-Instead of making the UI call many classes directly, the UI communicates with one main class that handles the required operations. This makes the system easier to use and understand.
+Instead of interacting directly with repositories and subsystems, the GUI communicates through a single facade class.
 
 **Why we used it:**
-- To hide complex internal operations.
-- To make the UI code simpler.
-- To reduce dependency between classes.
-- To keep the project structure organized.
+- To simplify communication between layers
+- To reduce coupling between classes
+- To hide internal complexity
+- To organize the system architecture
 
 ---
 
@@ -55,15 +86,21 @@ Instead of making the UI call many classes directly, the UI communicates with on
 
 **Type:** Behavioral Design Pattern
 
-We used the Observer Pattern to update notifications when something changes in the system.
+The Observer Pattern is used to automatically update notifications when changes occur in the system.
 
-For example, when the mother adds a child, adds a care team member, uploads a report, or requests an appointment, the notification area can be updated automatically.
+Notifications are triggered when:
+- A child profile is added
+- A report is uploaded
+- A care team member is added
+- An appointment is requested
+
+The notification panel updates automatically through observer communication.
 
 **Why we used it:**
-- To notify related parts of the system when changes happen.
-- To update notifications automatically.
-- To reduce direct connection between classes.
-- To make the system more flexible.
+- To support automatic updates
+- To reduce direct dependencies
+- To improve system flexibility
+- To separate notification logic from business logic
 
 ---
 
@@ -71,46 +108,99 @@ For example, when the mother adds a child, adds a care team member, uploads a re
 
 **Type:** Behavioral Design Pattern
 
-We used the Strategy Pattern to support different ways of searching and filtering data.
+The Strategy Pattern is used to support multiple report search algorithms dynamically.
 
-For example, the system can search reports or information using different strategies, such as searching by content, author, role, or child name. Each search method is separated into its own strategy class.
+Supported search strategies:
+- Search by Content
+- Search by Author
+- Search by Role
+- Search by Child Name
+- Search All
+
+Each search behavior is implemented in a separate strategy class and selected dynamically at runtime.
 
 **Why we used it:**
-- To support more than one search method.
-- To avoid many `if/else` statements.
-- To make the search feature easier to extend.
-- To keep each search behavior in a separate class.
+- To support multiple search methods
+- To avoid large `if/else` statements
+- To improve flexibility
+- To make the search feature easier to extend
 
 ---
 
-## Summary
-
-The design patterns used in Weam helped improve the quality of the project. Factory helped with object creation, Facade simplified communication between the UI and the system, Observer helped with automatic notifications, and Strategy made the search feature more flexible.
-
-These patterns were chosen because they solve real problems in the project and make the code cleaner, more organized, and easier to maintain.
 ## Main Features
 
-- Mother-based login and registration
-- The system is designed around the mother dashboard
-- The mother can manage her profile and children profiles
-- The mother can add care team members
-- The mother can request appointments from care team members
-- The mother can view reports, notifications, communication, and child progress from one dashboard
+- Parent-based login system
+- Dashboard-centered interface
+- Child profile management
+- Mother profile management
+- Care team member management
+- Report creation and viewing
+- Appointment requests
+- Notifications system
+- Communication section
+- Dynamic report searching
+- Child progress tracking
+
+---
+
+## Project Structure
+
+```text
+app           -> Main application and GUI navigation
+facade        -> Facade Pattern implementation
+factory       -> Factory Method Pattern classes
+model         -> System entities and data models
+observer      -> Observer Pattern classes
+repository    -> In-memory data storage
+strategy      -> Strategy Pattern classes
+tests         -> JUnit test classes
+ui            -> GUI panels and dashboard cards
+
+---
 
 ## How to Run
 
-Run this class:
+Run the main application class:
 
 ```java
 app.CareConnectApp
-```
+
+The system will launch the graphical user interface (GUI) for the Weam platform.
+---
 
 ## Testing
 
-Run this class:
+The project includes separate JUnit test classes for each implemented design pattern and overall system functionality.
+
+Run the test classes inside the `tests` package:
 
 ```java
-careconnect.PatternDemoTest
-```
+tests.FactoryPatternTest
+tests.StrategyPatternTest
+tests.ObserverPatternTest
+tests.FacadePatternTest
+tests.ApplicationTest
 
-It tests the three design patterns without opening the GUI.
+## These tests verify:
+
+- Factory Method Pattern behavior
+- Strategy Pattern search functionality
+- Observer Pattern notifications
+- Facade integration
+- Overall system operations
+
+## Summary
+
+The design patterns used in Weam helped improve the quality and structure of the project.
+
+- Factory Method simplified object creation
+- Facade simplified communication between layers
+- Observer enabled automatic notifications
+- Strategy improved flexibility of the search system
+
+These patterns solved real system problems and helped make the code cleaner, more modular, and easier to maintain.
+
+## Authors
+- Amal Aljohani
+- Ghaida Alhadi
+- Tarafh Alakor

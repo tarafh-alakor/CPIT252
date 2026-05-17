@@ -1,8 +1,8 @@
 package model;
 
 // Common parent class to avoid repeating code in each user role class.
-
 public abstract class BaseUser implements User {
+
     private final String name;
 
     public BaseUser(String name) {

@@ -3,11 +3,7 @@ package ui.components;
 import javax.swing.*;
 import java.awt.*;
 
-/*
- * Illustrated child profile component.
- *
- * Avoids external image files.
- */
+//Illustrated child profile component, Avoids external image files.
 public class ChildPhoto extends JComponent {
 
     public ChildPhoto() {
@@ -16,12 +12,12 @@ public class ChildPhoto extends JComponent {
                 new Dimension(92, 92)
         );
     }
-
+//Draws the illustrated child avatar.
     @Override
     protected void paintComponent(Graphics g) {
 
-        Graphics2D graphics =
-                (Graphics2D) g.create();
+        Graphics2D graphics
+                = (Graphics2D) g.create();
 
         graphics.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
