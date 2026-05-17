@@ -1,22 +1,68 @@
 package careconnect;
 
-// Simple test class for the report / demo.
-// It proves that the three selected design patterns work without opening the GUI.
+import facade.CarePlatformFacade;
+import factory.UserFactory;
+import model.Report;
+import model.User;
+import observer.NotificationCenter;
+import repository.CareRepository;
+import strategy.SearchByAuthor;
+import strategy.SearchContext;
+import strategy.SearchStrategy;
+
 public class PatternDemoTest {
+
     public static void main(String[] args) {
-        // Factory Method test
+
+        // Factory Method
         UserFactory factory = new UserFactory();
-        User doctor = factory.createUser("Doctor", "Sarah");
 
-        // Observer test
-        NotificationCenter center = new NotificationCenter();
-        center.attach(message -> System.out.println("Observer received: " + message));
+        User doctor =
+                factory.createUser(
+                        "Doctor",
+                        "Sarah"
+                );
 
-        // Facade test
-        CareRepository repository = new CareRepository();
-        CarePlatformFacade facade = new CarePlatformFacade(repository, center);
-        facade.addReport(doctor, "Jana Ahmad", "Medical status is stable.");
+        System.out.println(
+                "Factory Created: "
+                        + doctor.getName()
+        );
 
-        System.out.println("Reports count: " + facade.getReports().size());
+        // Observer + Facade
+        NotificationCenter center =
+                new NotificationCenter();
+
+        center.attach(message ->
+                System.out.println(
+                        "Notification: "
+                                + message
+                )
+        );
+
+        CareRepository repository =
+                new CareRepository();
+
+        CarePlatformFacade facade =
+                new CarePlatformFacade(
+                        repository,
+                        center
+                );
+
+        facade.addReport(
+                doctor,
+                "Jana Ahmad",
+                "Speech progress improved."
+        );
+
+        // Strategy
+        SearchStrategy strategy =
+                new SearchByAuthor();
+
+        SearchContext context = new SearchContext(strategy);
+        System.out.println(
+                "Strategy search results: "
+                        + context.executeSearch(facade.getReports(), "Sarah").size()
+        );
+
     }
 }
